@@ -16,8 +16,10 @@ class Main extends Dbh{
 	*/
 
 	public function __construct(){
+
 		parent::__construct();
 		$this->pdo = $this->get_connection();
+		
 	}
 
 	public function rango($fecha, $disponible){
@@ -26,8 +28,9 @@ class Main extends Dbh{
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
 		$stmt->execute();
+		$ress = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $ress;
 
 	}
 
@@ -47,8 +50,9 @@ class Main extends Dbh{
 		$stmt = $this->pdo->prepare($sql);
 		$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
 		$stmt->execute();
+		$ress = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $ress;
 
 	}
 

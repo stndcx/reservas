@@ -1,6 +1,6 @@
 
 <div class="container py-5">
-<h5 class="mb-3">Reservas</h5>
+<h5 class="mb-3">Reservas - <a href="./">Home</a></h5>
 
 <?php
 
@@ -65,29 +65,36 @@ if(isset($_POST['asiento'])){
 
 <div class="tablet">
 <div class="left-chairs">
-<?php foreach ($izquierda as $asiento) { ?>
-<label class="chair" style="border-radius: 10px 0 0 10px;">
 <?php
-$disabled = in_array($asiento, $ass_dis) ? '' : 'disabled';
+foreach ($izquierda as $asiento) {
 ?>
-<input type='radio' name='asiento' value='<?=$asiento;?>' <?=$disabled;?>> 
-<img src="assets/img/office-chair-left.png">
-</label>
-<?php } ?>
+	<label class="chair" style="border-radius: 10px 0 0 10px;">
+<?php
+		$disabled = in_array($asiento, $ass_dis) ? '' : 'disabled';
+?>
+		<input type='radio' name='asiento' value='<?=$asiento;?>' <?=$disabled;?>> 
+		<img src="assets/img/office-chair-left.png">
+	</label>
+<?php
+}
+?>
 </div>
 
 <div class="table-rect"></div>
 <div class="right-chairs">
-<?php foreach ($derecha as $asiento) { ?>
-<label class="chair">
 <?php
-$disabled = in_array($asiento, $ass_dis) ? '' : 'disabled';
+foreach ($derecha as $asiento) {
 ?>
-<input type='radio' name='asiento' value='<?=$asiento;?>' <?=$disabled;?>>
-<img src="assets/img/office-chair-right.png">
-</label>
-
-<?php } ?>
+	<label class="chair">
+<?php
+		$disabled = in_array($asiento, $ass_dis) ? '' : 'disabled';
+?>
+		<input type='radio' name='asiento' value='<?=$asiento;?>' <?=$disabled;?>>
+		<img src="assets/img/office-chair-right.png">
+	</label>
+<?php
+}
+?>
 
 </div>
 </div>
