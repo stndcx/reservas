@@ -50,7 +50,7 @@ $ass_dis = $app->habilitados($fecha, $disponible);
 
 if(isset($_POST['asiento'])){
 
-	$idusuario = 1;
+	$idusuario = 1; // el id debe ser el del usuario logueado
 	$asiento = $_POST['asiento'];
 	$estado = 0;
 	$date = $fecha;

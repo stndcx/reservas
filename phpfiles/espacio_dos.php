@@ -20,7 +20,7 @@ function connect() {
 
 $pdo = connect();
 
-$id = 1;
+$id = 1; // el id debe ser el del usuario logueado
 
 $disponible = range(11, 16);
 
@@ -29,7 +29,7 @@ $derecha = array_slice($disponible, 3);
 
 $fecha = $_GET['fecha'];
 
-$ass_dis = habilitados($fecha, $disponible, $pdo);
+$ass_dis = $app->habilitados($fecha, $disponible);
 
 $reservas = rango($fecha, $disponible, $pdo);
 ?>
@@ -75,18 +75,10 @@ function reservas_hoy($fecha, $pdo){
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function habilitados($fecha, $disponible, $pdo){
-
-    $reservas = reservas_hoy($fecha, $pdo);
-    $ass_res = array_column($reservas, 'asiento');
-    $ass_dis = array_diff($disponible, $ass_res);
-
-    return $ass_dis;
-
-}
 
 
-$ass_dis = habilitados($fecha, $disponible, $pdo);
+
+$ass_dis = $app->habilitados($fecha, $disponible);
 
 ?>
 
