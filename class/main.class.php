@@ -21,14 +21,14 @@ class Main extends Dbh{
 	}
 
 
-	public function reservas(){
+	public function rango($fecha, $disponible, $pdo){
 
-		$sql = "SELECT * FROM lista LEFT JOIN usuarios ON usuarios.id = lista.idusuario";
+		$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha AND lista.asiento IN (" . implode(',', $disponible) . ")";
 		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
 		$stmt->execute();
-		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $result;
+		return $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 	}
 
