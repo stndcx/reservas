@@ -1,40 +1,17 @@
 
 <div class="container py-5">
-
 <h5 class="mb-3">Reservas</h5>
 
 <?php
 
-function connect(){
-
-	$host = 'localhost';
-	$db = 'reservas';
-	$user = 'root';
-	$pass = '';
-
-	try {
-		$pdo = new PDO("mysql:host=$host;dbname=$db", $user, $pass);
-		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		return $pdo;
-	} catch (PDOException $e) {
-		echo "Error de conexión: " . $e->getMessage();
-		die();
-	}
-
-}
-
-$pdo = connect();
-
 $disponible = range(1, 10);
-
 $izquierda = array_slice($disponible, 0, 5);
 $derecha = array_slice($disponible, 5);
 
 $fecha = $_GET['fecha'];
+$ass_dis = $app->habilitados($fecha, $disponible);
+$reservas = $app->rango($fecha, $disponible);
 
-$ass_dis = habilitados($fecha, $disponible, $pdo);
-
-$reservas = rango($fecha, $disponible, $pdo);
 ?>
 
 <div class="row">
@@ -43,6 +20,7 @@ $reservas = rango($fecha, $disponible, $pdo);
 <h5 class="mb-3">Reservados para el d&iacute;a <?=$fecha;?></h5>
 
 <?php
+
 if (empty($reservas)) {
 	echo '<p class="mb-0">No hay lugares reservados para esta fecha.</p>';
 } else {
@@ -57,52 +35,8 @@ Asiento #<?=$reserva['asiento'];?>
 	}
 }
 
-function rango($fecha, $disponible, $pdo){
+$ass_dis = $app->habilitados($fecha, $disponible);
 
-	$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha AND lista.asiento IN (" . implode(',', $disponible) . ")";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-	$stmt->execute();
-
-	return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-}
-
-function reservas_hoy($fecha, $pdo){
-
-	$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha";
-	$stmt = $pdo->prepare($sql);
-	$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-	$stmt->execute();
-
-	return $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-}
-
-function habilitados($fecha, $disponible, $pdo){
-	$reservas = reservas_hoy($fecha, $pdo);
-
-	$ass_res = array_column($reservas, 'asiento');
-
-	$ass_dis = array_diff($disponible, $ass_res);
-
-	return $ass_dis;
-
-}
-
-
-$ass_dis = habilitados($fecha, $disponible, $pdo);
-
-
-function nueva_reserva($idusuario, $asiento, $estado, $date){
-	
-	$sql = "INSERT INTO lista (idusuario, asiento, estado, fecha) VALUES (?,?,?,?)";
-	$stmt = connect()->prepare($sql);
-	$stmt->execute([$idusuario, $asiento, $estado, $date]);
-
-	return;
-
-}
 ?>
 </div>
 </div>
@@ -121,9 +55,10 @@ if(isset($_POST['asiento'])){
 	$estado = 0;
 	$date = $fecha;
 
-	nueva_reserva($idusuario, $asiento, $estado, $date);
+	$app->nueva_reserva($idusuario, $asiento, $estado, $date);
 
 }
+
 ?>
 
 <form action="" method="post">
@@ -167,6 +102,5 @@ $disabled = in_array($asiento, $ass_dis) ? '' : 'disabled';
 
 </div>
 </div>
-</div>
-
+</div> <!-- end row -->
 </div>
