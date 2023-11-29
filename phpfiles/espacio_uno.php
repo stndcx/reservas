@@ -1,39 +1,3 @@
-<style>
-.tablet {
-	display: flex;
-	align-items: center;
-}
-
-.chair {
-	width: 40px;
-	height: 40px;
-	margin: 5px;
-}
-
-.chair label {
-	display: inline-block;
-	margin-bottom: .5rem;
-}
-
-.chair {text-align: center;}
-.chair img {width: 40px; padding: 3px;}
-.chair input {display: none;}
-.chair input:checked + img {background-color: rgba(220, 53, 69,.4); border-radius: .5rem;}
-
-.left-chairs, .right-chairs {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-}
-
-.table-rect {
-	width: 150px;
-	height: 240px;
-	background-color: #fff;
-	border: 1px solid #333;
-	margin: 0 10px;
-}
-</style>
 
 <div class="container py-5">
 
