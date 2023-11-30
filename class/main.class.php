@@ -22,6 +22,26 @@ class Main extends Dbh{
 		
 	}
 
+	public function calendario($disponible){
+
+		echo '<table class="table">';
+		echo "<tr><th>D&iacute;as</th><th>Lugares Disponibles</th></tr>";
+
+		for ($i = 1; $i <= 7; $i++) {
+			$fecha = date('Y-m-d', strtotime("+{$i} days"));
+
+			echo "<tr>";
+			echo '<td><a href=./?page=espacio_uno&fecha='.$fecha.'>'.$fecha.'</a></td>';
+
+			$as_dis = $this->habilitados($fecha, $disponible);
+			echo "<td>" . implode(", ", $as_dis) . "</td>";
+
+			echo "</tr>";
+		}
+
+		echo "</table>";
+	}
+
 	public function rango($fecha, $disponible){
 
 		$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha AND lista.asiento IN (" . implode(',', $disponible) . ")";
@@ -44,7 +64,7 @@ class Main extends Dbh{
 
 	}
 
-	function reservas_hoy($fecha){
+	public function reservas_hoy($fecha){
 
 		$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha";
 		$stmt = $this->pdo->prepare($sql);
@@ -54,6 +74,19 @@ class Main extends Dbh{
 
 		return $ress;
 
+	}
+
+	public function reservas($reservas){
+
+		foreach ($reservas as $reserva) {
+
+			echo '<div class="d-flex justify-content-between align-items-center">';
+			echo '<p class="text-capitalize mb-0">'.$reserva['nombre'].'</p>';
+			echo ' Asiento #'.$reserva['asiento'];
+			echo '</div>';
+			echo '<hr>';
+
+		}
 	}
 
 	function nueva_reserva($idusuario, $asiento, $estado, $date){
