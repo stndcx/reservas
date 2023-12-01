@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('America/Argentina/Buenos_Aires');
+
 class Main extends Dbh{
 
 	private $pdo;
@@ -20,6 +22,25 @@ class Main extends Dbh{
 		parent::__construct();
 		$this->pdo = $this->get_connection();
 		
+	}
+
+	public function login(){
+		if(isset($_POST['signin'])){
+			if(!empty($_POST['email']) && !empty($_POST['pass'])){
+				$sql = "SELECT * FROM usuarios WHERE email=:email AND pass=:pass";
+				$stmt = $this->pdo->prepare($sql);
+				$stmt->execute(array(':email'=>$_POST['email'], ':pass'=>hash('sha256', $_POST['pass'])));
+
+				$fila = $stmt->fetch();       
+				if($fila > 0){
+					$_SESSION['logueado'] = "SI";
+					$_SESSION['id']  = $fila['id'];
+					header('location: ./?page=home');
+				} else{
+					echo '<div class="text-center alert alert-danger">Please check your email and password and try again.</div>';
+				}
+			}
+		}
 	}
 
 	public function calendario($disponible){
