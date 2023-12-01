@@ -1,5 +1,13 @@
+<?php
+
+if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
+
+?>
 
 <div class="container py-5">
+
+<h5 class="mb-3">ID del usuario: <?=$_SESSION['id'];?> - <a href="./?page=out">Salir</a></h5>
+
 <h5 class="mb-3">Reservas</h5>
 
 <?php
@@ -32,3 +40,12 @@ $app->calendario($disponible);
 </div>
 
 </div>
+
+<?php
+
+} else {
+	header('location: ./?page=login');
+	exit();
+}
+
+?>
