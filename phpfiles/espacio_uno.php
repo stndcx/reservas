@@ -1,5 +1,13 @@
+<?php
+
+if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
+
+$user = $app->usuarios($_SESSION['id']);
+
+?>
 
 <div class="container py-5">
+<h5 class="mb-3">Hola <?=$user[0]['nombre'];?> - <a href="./?page=out">Salir</a></h5>
 <h5 class="mb-3">Reservas - <a href="./">Home</a></h5>
 
 <?php
@@ -26,11 +34,11 @@ if (empty($reservas)) {
 } else {
 	foreach ($reservas as $reserva) {
 ?>
-<div class="d-flex justify-content-between align-items-center">
-<p class="text-capitalize mb-0"><?=$reserva['nombre'];?></p>
-Asiento #<?=$reserva['asiento'];?>
-</div>
-<hr>
+		<div class="d-flex justify-content-between align-items-center">
+			<p class="text-capitalize mb-0"><?=$reserva['nombre'];?></p>
+			Asiento #<?=$reserva['asiento'];?>
+		</div>
+		<hr>
 <?php
 
 	}
@@ -51,7 +59,7 @@ $ass_dis = $app->habilitados($fecha, $disponible);
 
 if(isset($_POST['asiento'])){
 
-	$idusuario = 1; // el id debe ser el del usuario logueado
+	$idusuario = $_SESSION['id']; // el id debe ser el del usuario logueado
 	$asiento = $_POST['asiento'];
 	$estado = 0;
 	$date = $fecha;
@@ -112,3 +120,12 @@ foreach ($derecha as $asiento) {
 </div>
 </div> <!-- end row -->
 </div>
+
+<?php
+
+} else {
+	header('location: ./?page=login');
+	exit();
+}
+
+?>

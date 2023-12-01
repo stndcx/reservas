@@ -2,12 +2,12 @@
 
 if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
 
+$user = $app->usuarios($_SESSION['id']);
+
 ?>
 
 <div class="container py-5">
-
-<h5 class="mb-3">ID del usuario: <?=$_SESSION['id'];?> - <a href="./?page=out">Salir</a></h5>
-
+<h5 class="mb-3">Hola <?=$user[0]['nombre'];?> - <a href="./?page=out">Salir</a></h5>
 <h5 class="mb-3">Reservas</h5>
 
 <?php
