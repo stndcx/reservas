@@ -21,8 +21,10 @@ $reservasHoy = $app->reservas_hoy($hoy);
 <div class="shadow rounded-4 p-3">
 <h5>Pr&oacute;xima reserva</h5>
 <?php
+
 $disponible = range(1, 22);
 $app->calendario($disponible);
+
 ?>
 
 </div>

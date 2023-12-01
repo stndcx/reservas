@@ -35,6 +35,7 @@ if (empty($reservas)) {
 		</div>
 		<hr>
 <?php
+
 	}
 }
 
