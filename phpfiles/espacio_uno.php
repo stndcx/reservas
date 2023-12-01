@@ -32,6 +32,7 @@ Asiento #<?=$reserva['asiento'];?>
 </div>
 <hr>
 <?php
+
 	}
 }
 

@@ -23,7 +23,6 @@ if(isset($_GET['page']) && $_GET['page']){
 	include 'phpfiles/home.php';
 }
 
-
 footerapp();
 
 ?>
