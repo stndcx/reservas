@@ -1,10 +1,18 @@
+<?php
+
+if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
+
+$user = $app->usuarios($_SESSION['id']);
+
+?>
 
 <div class="container py-5">
+<h5 class="mb-3">Hola <?=$user[0]['nombre'];?> - <a href="./?page=out">Salir</a></h5>
 <h5 class="mb-3">Reservas - <a href="./">Home</a></h5>
 
 <?php
 
-$id = 1; // el id debe ser el del usuario logueado
+$id = $_SESSION['id']; // el id debe ser el del usuario logueado
 
 $disponible = range(11, 16);
 $izquierda = array_slice($disponible, 0, 3);
@@ -94,9 +102,18 @@ foreach ($derecha as $asiento) {
 <input class="btn btn-primary shadow mb-3" type="submit" value="Reservar">
 </form>
 
-<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Volver a espacio Uno para el <?=$fecha;?></a>
-<a class="btn btn-primary" href="./?page=espacio_tres&fecha=<?=$fecha;?>">Ver en espacio Tres para el <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Espacio A1 para el <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_tres&fecha=<?=$fecha;?>">Espacio A3 para el <?=$fecha;?></a>
 
 </div>
 </div>
 </div>
+
+<?php
+
+} else {
+	header('location: ./?page=login');
+	exit();
+}
+
+?>

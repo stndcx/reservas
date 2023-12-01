@@ -43,6 +43,16 @@ class Main extends Dbh{
 		}
 	}
 
+	public function usuarios($id){
+		$sql = "SELECT * FROM usuarios WHERE id = :id";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
+		$stmt->execute();
+		$ress = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $ress;
+	}
+
 	public function calendario($disponible){
 
 		echo '<table class="table">';

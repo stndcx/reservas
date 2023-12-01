@@ -1,10 +1,18 @@
+<?php
+
+if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
+
+$user = $app->usuarios($_SESSION['id']);
+
+?>
 
 <div class="container py-5">
+<h5 class="mb-3">Hola <?=$user[0]['nombre'];?> - <a href="./?page=out">Salir</a></h5>
 <h5 class="mb-3">Reservas - <a href="./">Home</a></h5>
 
 <?php
 
-$id = 1; // el id debe ser el del usuario logueado
+$id = $_SESSION['id']; // el id debe ser el del usuario logueado
 
 $disponible = range(17, 22);
 $izquierda = array_slice($disponible, 0, 3);
@@ -51,6 +59,21 @@ $ass_dis = $app->habilitados($fecha, $disponible);
 <h3>Espacio A3</h3>
 <h5 class="mb-3">Seleccione un asiento</h5>
 
+<?php
+
+if(isset($_POST['asiento'])){
+
+	$idusuario = $_SESSION['id']; // el id debe ser el del usuario logueado
+	$asiento = $_POST['asiento'];
+	$estado = 0;
+	$date = $fecha;
+
+	$app->nueva_reserva($idusuario, $asiento, $estado, $date);
+
+}
+
+?>
+
 <form action="" method="post">
 <div class="tablet">
 <div class="left-chairs">
@@ -91,9 +114,18 @@ foreach ($derecha as $asiento) {
 <input class="btn btn-primary shadow mb-3" type="submit" value="Reservar">
 </form>
 
-<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Volver a espacio Uno para el <?=$fecha;?></a>
-<a class="btn btn-primary" href="./?page=espacio_dos&fecha=<?=$fecha;?>">Ver en espacio Dos para el <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Espacio A1 para el <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_dos&fecha=<?=$fecha;?>">Espacio A2 para el <?=$fecha;?></a>
 
 </div>
 </div>
 </div>
+
+<?php
+
+} else {
+	header('location: ./?page=login');
+	exit();
+}
+
+?>
