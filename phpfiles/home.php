@@ -35,9 +35,17 @@ $app->calendario($disponible);
 
 ?>
 
+
+<img src="assets/img/plano.jpg" class="img-fluid">
+
+</div>
+
+
+
 </div>
 </div>
-</div>
+
+
 
 </div>
 

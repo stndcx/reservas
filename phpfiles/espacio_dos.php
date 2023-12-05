@@ -59,6 +59,21 @@ $ass_dis = $app->habilitados($fecha, $disponible);
 <h3>Espacio A2</h3>
 <h5 class="mb-3">Seleccione un asiento</h5>
 
+<?php
+
+if(isset($_POST['asiento'])){
+
+	$idusuario = $_SESSION['id']; // el id debe ser el del usuario logueado
+	$asiento = $_POST['asiento'];
+	$estado = 0;
+	$date = $fecha;
+
+	$app->nueva_reserva($idusuario, $asiento, $estado, $date);
+
+}
+
+?>
+
 <form action="" method="post">
 <div class="tablet">
 <div class="left-chairs">
@@ -99,11 +114,12 @@ foreach ($derecha as $asiento) {
 <br>
 <br>
 
-<input class="btn btn-primary shadow mb-3" type="submit" value="Reservar">
+<div class="mb-2">
+<?php $app->validar_reserva($_SESSION['id'], $fecha); ?>
+<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Espacio A1 - <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_tres&fecha=<?=$fecha;?>">Espacio A3 - <?=$fecha;?></a>
+</div>
 </form>
-
-<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Espacio A1 para el <?=$fecha;?></a>
-<a class="btn btn-primary" href="./?page=espacio_tres&fecha=<?=$fecha;?>">Espacio A3 para el <?=$fecha;?></a>
 
 </div>
 </div>

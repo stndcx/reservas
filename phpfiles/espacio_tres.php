@@ -111,11 +111,13 @@ foreach ($derecha as $asiento) {
 
 <br>
 <br>
-<input class="btn btn-primary shadow mb-3" type="submit" value="Reservar">
-</form>
 
-<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Espacio A1 para el <?=$fecha;?></a>
-<a class="btn btn-primary" href="./?page=espacio_dos&fecha=<?=$fecha;?>">Espacio A2 para el <?=$fecha;?></a>
+<div class="mb-2">
+<?php $app->validar_reserva($_SESSION['id'], $fecha); ?>
+<a class="btn btn-primary" href="./?page=espacio_uno&fecha=<?=$fecha;?>">Espacio A1 - <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_dos&fecha=<?=$fecha;?>">Espacio A2 - <?=$fecha;?></a>
+</div>
+</form>
 
 </div>
 </div>

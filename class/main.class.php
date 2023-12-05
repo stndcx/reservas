@@ -46,8 +46,7 @@ class Main extends Dbh{
 	public function usuarios($id){
 		$sql = "SELECT * FROM usuarios WHERE id = :id";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->bindParam(':id', $id, PDO::PARAM_STR);
-		$stmt->execute();
+		$stmt->execute(array(":id" => $id));
 		$ress = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $ress;
@@ -77,8 +76,7 @@ class Main extends Dbh{
 
 		$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha AND lista.asiento IN (" . implode(',', $disponible) . ")";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-		$stmt->execute();
+		$stmt->execute(array(":fecha" => $fecha));
 		$ress = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $ress;
@@ -99,8 +97,7 @@ class Main extends Dbh{
 
 		$sql = "SELECT * FROM lista LEFT JOIN usuarios ON lista.idusuario = usuarios.id WHERE lista.fecha = :fecha";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->bindParam(':fecha', $fecha, PDO::PARAM_STR);
-		$stmt->execute();
+		$stmt->execute(array(":fecha" => $fecha));
 		$ress = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $ress;
@@ -120,7 +117,22 @@ class Main extends Dbh{
 		}
 	}
 
-	function nueva_reserva($idusuario, $asiento, $estado, $date){
+	public function validar_reserva($id, $fecha){
+
+		$sql = "SELECT COUNT(*) as total FROM lista WHERE idusuario = :id AND fecha = :fecha";
+		$stmt = $this->pdo->prepare($sql);
+		$stmt->execute(array(":id" => $id, ":fecha" => $fecha));
+
+		$ress = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if ($ress['total'] > 0) {
+			echo '<input class="btn btn-secondary me-3" value="Reservar">';
+		} else {
+			echo '<input class="btn btn-primary me-3" type="submit" value="Reservar">';
+		}
+	}
+
+	public function nueva_reserva($idusuario, $asiento, $estado, $date){
 	
 		$sql = "INSERT INTO lista (idusuario, asiento, estado, fecha) VALUES (?,?,?,?)";
 		$stmt = $this->pdo->prepare($sql);
