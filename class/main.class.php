@@ -126,7 +126,7 @@ class Main extends Dbh{
 		$ress = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		if ($ress['total'] > 0) {
-			echo '<input class="btn btn-secondary me-3" value="Reservar">';
+			echo '<input class="btn btn-secondary me-3" value="Reservar" disabled>';
 		} else {
 			echo '<input class="btn btn-primary me-3" type="submit" value="Reservar">';
 		}
@@ -136,7 +136,19 @@ class Main extends Dbh{
 	
 		$sql = "INSERT INTO lista (idusuario, asiento, estado, fecha) VALUES (?,?,?,?)";
 		$stmt = $this->pdo->prepare($sql);
-		$stmt->execute([$idusuario, $asiento, $estado, $date]);
+		// $stmt->execute([$idusuario, $asiento, $estado, $date]);
+
+		try {
+			$stmt->execute([$idusuario, $asiento, $estado, $date]);
+			echo '<script>';
+			echo 'mostrarNotificacion("Reserva exitosa", "success");';
+			echo '</script>';
+
+		} catch (PDOException $e) {
+			echo '<script>';
+			echo 'mostrarNotificacion("Error al realizar la reserva", "error");';
+			echo '</script>';
+		}
 
 		return;
 
