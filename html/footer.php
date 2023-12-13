@@ -1,6 +1,6 @@
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<!--script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 <script>
 function mostrarNotificacion(mensaje, tipo) {
 	Toastify({
@@ -14,6 +14,6 @@ function mostrarNotificacion(mensaje, tipo) {
 		backgroundColor: tipo === 'success' ? 'green' : 'red',
 	}).showToast();
 }
-</script>
+</script-->
 </body>
 </html>

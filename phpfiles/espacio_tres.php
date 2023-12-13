@@ -7,8 +7,7 @@ $user = $app->usuarios($_SESSION['id']);
 ?>
 
 <div class="container py-5">
-<h5 class="mb-3">Hola <?=$user[0]['nombre'];?> - <a href="./?page=out">Salir</a></h5>
-<h5 class="mb-3">Reservas - <a href="./">Home</a></h5>
+<h5 class="mb-3">Hola <span class="text-capitalize"><?=$user[0]['nombre'];?></span> - <a href="./">Home</a> - <a href="./?page=out">Salir</a></h5>
 
 <?php
 
