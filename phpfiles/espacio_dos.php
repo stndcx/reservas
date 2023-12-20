@@ -3,10 +3,10 @@
 if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
 
 $user = $app->usuarios($_SESSION['id']);
-
+require "html/nav.php";
 ?>
 
-<div class="container py-5">
+<div class="container py-3">
 <h5 class="mb-3">Hola <span class="text-capitalize"><?=$user[0]['nombre'];?></span> - <a href="./">Home</a> - <a href="./?page=out">Salir</a></h5>
 
 <?php
