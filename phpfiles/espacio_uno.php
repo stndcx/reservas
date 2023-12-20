@@ -3,11 +3,11 @@
 if(isset($_SESSION['logueado']) && $_SESSION['logueado'] === "SI") {
 
 $user = $app->usuarios($_SESSION['id']);
-
+require "html/nav.php";
 ?>
 
-<div class="container py-5">
-<h5 class="mb-3">Hola <span class="text-capitalize"><?=$user[0]['nombre'];?></span> - <a href="./">Home</a> - <a href="./?page=out">Salir</a></h5>
+<div class="container py-3">
+<h5 class="mb-3">Hola <span class="text-capitalize"><?=$user[0]['nombre'];?></span></h5>
 
 <?php
 
@@ -112,8 +112,8 @@ foreach ($derecha as $asiento) {
 
 <div class="mb-2">
 <?php $app->validar_reserva($_SESSION['id'], $fecha); ?>
-<a class="btn btn-primary" href="./?page=espacio_dos&fecha=<?=$fecha;?>">Espacio A2 - <?=$fecha;?></a>
-<a class="btn btn-primary" href="./?page=espacio_tres&fecha=<?=$fecha;?>">Espacio A3 - <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_dos&fecha=<?=$fecha;?>"><i class="bi bi-calendar"></i> Espacio A2 - <?=$fecha;?></a>
+<a class="btn btn-primary" href="./?page=espacio_tres&fecha=<?=$fecha;?>"><i class="bi bi-calendar"></i> Espacio A3 - <?=$fecha;?></a>
 </div>
 </form>
 
