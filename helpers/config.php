@@ -12,9 +12,4 @@ if($_SERVER['SERVER_NAME'] == 'localhost'){
 	define("DB_NAME", "");
 }
 
-// Decimal and thousand delimiters Ex. 24.1989,00
-define("SPD", ".");
-define("SPM", ",");
-define("SMONEY", "$");
-
 ?>
