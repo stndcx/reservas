@@ -136,19 +136,19 @@ class Main extends Dbh{
 	
 		$sql = "INSERT INTO lista (idusuario, asiento, estado, fecha) VALUES (?,?,?,?)";
 		$stmt = $this->pdo->prepare($sql);
-		// $stmt->execute([$idusuario, $asiento, $estado, $date]);
+		$stmt->execute([$idusuario, $asiento, $estado, $date]);
 
-		try {
-			$stmt->execute([$idusuario, $asiento, $estado, $date]);
-			echo '<script>';
-			echo 'mostrarNotificacion("Reserva exitosa", "success");';
-			echo '</script>';
+		// try {
+		// 	$stmt->execute([$idusuario, $asiento, $estado, $date]);
+		// 	echo '<script>';
+		// 	echo 'mostrarNotificacion("Reserva exitosa", "success");';
+		// 	echo '</script>';
 
-		} catch (PDOException $e) {
-			echo '<script>';
-			echo 'mostrarNotificacion("Error al realizar la reserva", "error");';
-			echo '</script>';
-		}
+		// } catch (PDOException $e) {
+		// 	echo '<script>';
+		// 	echo 'mostrarNotificacion("Error al realizar la reserva", "error");';
+		// 	echo '</script>';
+		// }
 
 		return;
 
